@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "surveys/new"
+  get "surveys/create"
+  get "surveys/index"
+  get "surveys/show"
+  get "surveys/edit"
+  get "surveys/update"
   get "user_sessions/new"
   get "user_sessions/create"
   # get "users/index"
