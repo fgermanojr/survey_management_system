@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_15_172637) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_16_144428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "option_responses", force: :cascade do |t|
+    t.bigint "user_survey_taken_id"
+    t.bigint "question_id"
+    t.bigint "option_id"
+    t.boolean "option_selected"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["option_id"], name: "index_option_responses_on_option_id"
+    t.index ["question_id"], name: "index_option_responses_on_question_id"
+    t.index ["user_survey_taken_id"], name: "index_option_responses_on_user_survey_taken_id"
+  end
 
   create_table "options", force: :cascade do |t|
     t.bigint "question_id"
@@ -41,6 +53,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_172637) do
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
+  create_table "user_survey_takens", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "survey_id"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_user_survey_takens_on_survey_id"
+    t.index ["user_id"], name: "index_user_survey_takens_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -51,4 +73,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_172637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "option_responses", "options"
+  add_foreign_key "option_responses", "questions"
+  add_foreign_key "option_responses", "user_survey_takens"
+  add_foreign_key "user_survey_takens", "surveys"
+  add_foreign_key "user_survey_takens", "users"
 end

@@ -1,2 +1,8 @@
-<h1>Surveys#new</h1>
-<p>Find me in app/views/surveys/new.html.erb</p>
+<h1>New Survey</h1>
+
+<%= render "form", survey: @survey %>
+<br>
+
+<div>
+  <%= link_to "Back to surveys", surveys_path %>
+</div>

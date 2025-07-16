@@ -1,0 +1,68 @@
+<%= form_with(model: @survey, :action => '/surveys', :method => :post ) do |form| %>
+  <h3>SURVEY</h3>
+  <table id="survey_block" rules="all" style="border: 2px solid black;" >
+
+    <tr>
+      <td>
+        <%= "Title" %>
+      </td>
+      <td>
+        <%= form.text_field :survey_text%>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%= "Description" %>
+      </td>
+      <td>
+        <%= form.text_area :description%>
+      </td>
+    </tr>
+
+  </table>
+
+  <h3>QUESTIONS</h3>
+    <div id='questions'
+    <hr>
+    <%= form.fields_for :questions do |form_question| %>
+      <hr>
+      <%= form_question.hidden_field :survey_id %>
+      <%= form_question.label :question_text %>
+      <%= form_question.text_field :question_text %>
+      <br>
+      <%= form_question.fields_for :options do |form_option| %>
+        <%= form_option.hidden_field :question_id %>
+        <%= form_option.label :option_text %>
+        <%= form_option.text_field :option_text %>
+        <br>
+        <br>
+      <% end %>
+      <%= button_to "Add Option", new_option_path %>
+    <% end %>
+    <hr>
+
+    </div>
+  <br>
+  <%= button_to "Add Question", new_question_path %>
+  <br>
+
+  <% if survey.errors.any? %>
+  <h3>ERRORS</h3>
+    <div style="color: red">
+      <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+
+      <ul>
+        <% survey.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <br>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

@@ -1,16 +1,20 @@
 Rails.application.routes.draw do
-  get "surveys/new"
-  get "surveys/create"
-  get "surveys/index"
-  get "surveys/show"
-  get "surveys/edit"
-  get "surveys/update"
+  # get "surveys/new"
+  # get "surveys/create"
+  # get "surveys/index"
+  # get "surveys/show"
+  # get "surveys/edit"
+  # get "surveys/update"
+  resources :surveys
+  get "surveys/take"
   get "user_sessions/new"
   get "user_sessions/create"
   # get "users/index"
   # get "users/new"
   # get "users/create"
   resources :users, only: [:index, :new, :create]
+  resources :questions
+  resources :options
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

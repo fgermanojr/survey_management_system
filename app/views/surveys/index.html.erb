@@ -1,2 +1,32 @@
 <h1>Surveys#index</h1>
-<p>Find me in app/views/surveys/index.html.erb</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>QuestionCount</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @surveys.each do |s| %>
+    <tr>
+      <td><%= s.id %></td>
+      <td><%= s.title_text %></td>
+      <td><%= s.description %></td>
+      <td><%= s.questions.count %></td>
+      <td><%= button_to("Show", surveys_show_path(s.id), method: :get) %></td>
+      <td><%= button_to("Edit", surveys_edit_path(s.id), method: :get) %></td>
+      <td><%= button_to("Take", "/surveys/take/#{s.id}", method: :get) %></td>
+    </tr> 
+  <% end %>   
+</table>          
+<br>
+<br>
+<%= button_to "New Survey", new_survey_path %>
+<%= button_to "New User", new_user_path %>
