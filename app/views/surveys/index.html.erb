@@ -17,7 +17,7 @@
   <% @surveys.each do |s| %>
     <tr>
       <td><%= s.id %></td>
-      <td><%= s.title_text %></td>
+      <td><%= s.survey_text %></td>
       <td><%= s.description %></td>
       <td><%= s.questions.count %></td>
       <td><%= button_to("Show", surveys_show_path(s.id), method: :get) %></td>

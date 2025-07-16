@@ -8,7 +8,17 @@ class SurveysController < ApplicationController
   end
 
   def create
-    @survey = Survey.new
+    binding.pry
+    @survey = Survey.new(survey_params)
+    survey_saced = @survey.save
+
+    if survey_saved
+      flash[:notice] = "Survey was successfully created."
+      redirect_to survey_edit_path  # Redirects to show action;  TBD CHANGE
+    else
+      flash[:notice] = "Survey was not created."
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def index
