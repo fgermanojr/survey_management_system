@@ -1,2 +1,33 @@
-<h1>UserSurveyTakens#index</h1>
-<p>Find me in app/views/user_survey_takens/index.html.erb</p>
+<h1>Surveys Taken</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>QuestionCount</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @user_survey_takens.each do |ust| %>
+    <% s = Survey.find(ust.survey_id) %>
+    <tr>
+      <td><%= ust.id %></td>
+      <td><%= s.survey_text %></td>
+      <td><%= s.description %></td>
+      <td><%= s.questions.count %></td>
+      <td><%= button_to("Show", user_survey_taken_path(id: ust.id), method: :get) %></td>
+      <% if current_user.is_admin %>
+        <td><%= button_to("Edit", edit_user_survey_taken_path(id: ust.id), method: :put) %></td>
+      <% end %>
+    </tr> 
+  <% end %>   
+</table>          
+<br>
+<br>
+<%= button_to "Surveys", surveys_path %>

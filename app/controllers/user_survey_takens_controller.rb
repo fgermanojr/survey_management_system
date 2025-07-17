@@ -5,22 +5,23 @@ class UserSurveyTakensController < ApplicationController
   end
 
   def create
-    binding.pry
-
-    @user_survey_taken = UserSurveyTakens.new(user_survey_takens_params)
+    @user_survey_taken = UserSurveyTaken.new(user_survey_takens_params)
+    @survey ||= create_testing_survey 
     survey_saved = @user_survey_taken.save
 
     if survey_saved
       flash[:notice] = "Survey was successfully created."
-      redirect_to survey_edit_path  # Redirects to show action;  TBD CHANGE
+      redirect_to surveys_path  # Redirects to surveys_index path, change TBD
     else
       flash[:notice] = "Survey was not created."
-      render :edit, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
 
   end
 
   def index
+     @user_survey_takens = UserSurveyTaken.all
+    # taken surveys list
     # show the taken surveys, add show button on each line to show taken survey
     # add show results button on survey index to show summary results for each survey
     # add index filters (survey, user); add sorts, primary: survey_title, ln, fn
@@ -29,10 +30,9 @@ class UserSurveyTakensController < ApplicationController
   private
 
   def user_survey_takens_params
-    params.require(:user_survey_takens).permit!
+    params.require(:user_survey_taken).permit!
 
-    # params.require(:user_survey_takens).permit(:user_id, :survey_id, :completed_at,
-    #                                                 option_response_attributes: [:survey_id, :question_id, :option_id, :option_response] )
+    # params.require(:user_survey_taken).permit(:user_id, :survey_id, option_responses_attributes: [:survey_id, :question_id, :option_id, :option_response] )
   end
 
   def create_testing_survey

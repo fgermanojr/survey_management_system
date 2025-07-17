@@ -8,13 +8,12 @@ class SurveysController < ApplicationController
   end
 
   def create
-    binding.pry
     @survey = Survey.new(survey_params)
-    survey_saced = @survey.save
+    survey_saved = @survey.save
 
     if survey_saved
       flash[:notice] = "Survey was successfully created."
-      redirect_to survey_edit_path  # Redirects to show action;  TBD CHANGE
+      redirect_to survey_edit_path  # TBD change redirect to ___
     else
       flash[:notice] = "Survey was not created."
       render :edit, status: :unprocessable_entity
@@ -26,15 +25,15 @@ class SurveysController < ApplicationController
   end
 
   def show
+    # TBD
   end
 
   def edit
+    # TBD
   end
 
   def update
-  end
-
-  def take
+    # TBD
   end
 
   def survey_params

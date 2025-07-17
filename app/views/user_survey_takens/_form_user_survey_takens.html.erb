@@ -1,11 +1,14 @@
 <%= form_with(model: @user_survey_taken, :method => :post ) do |form| %>
-  <h3>TAKE SURVEY</h3>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :survey_id, value: @survey.id %>
+
+  <h3>SURVEY</h3>
   <table id="survey_taken_block" rules="all" style="border: 2px solid black;" >
     <tr>
-      <td>
+      <td width="150">
         <%= "Title" %>
       </td>
-      <td>
+      <td width="500">
         <%= @survey.survey_text%>
       </td>
     </tr>
@@ -23,11 +26,8 @@
 
   <h3>QUESTIONS</h3>
     <div id='option_responses'>
-    <hr>
     <% indx = 0 %>
     <%= form.fields_for :option_responses do |option_response_form| %>
-      <hr>
-      <%= option_response_form.hidden_field :survey_id, value: @survey.id %>
       <% question_id = @user_survey_taken.option_responses.to_a[indx].question_id %>
       <%= option_response_form.hidden_field :question_id, value: question_id %>
       <% question_text = @survey.questions.select{ |q| q.id == question_id }.first.question_text %>
@@ -36,12 +36,8 @@
       <% question = @survey.questions.select{ |q| q.id == question_id }.first %>
       <% option_text = question.options.select{ |o| o.id == option_id }.first.option_text %>
 
-      <%= option_response_form.label :question_text %>
-      <%= option_response_form.text_field :question_text, readonly:true, value: question_text %>
-      <%= option_response_form.label :option_text %>
-      <%= option_response_form.text_field :option_text, readonly:true, value: option_text %>
-
-      <%= option_response_form.label :option_selected %>
+      <%= option_response_form.label :question_text, value: question_text %>
+      <%= option_response_form.label :option_text, value: option_text %>
       <%= option_response_form.checkbox :option_selected %>
       <br>
       <% indx += 1 %>

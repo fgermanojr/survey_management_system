@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # get "user_survey_takens/new"
   # get "user_survey_takens/create"
   # get "user_survey_takens/index"
-  resources :user_survey_takens, only: [:index, :new, :create]
+  resources :user_survey_takens, only: [:index, :new, :create, :show, :edit]
   # get "surveys/new"
   # get "surveys/create"
   # get "surveys/index"
