@@ -1,0 +1,11 @@
+<h1>Survey Results</h1>
+<h2><%= @survey.survey_text %>
+<br>
+<br>
+<table id="results">
+<th>Question</th>
+<% @survey.questions.each do |q|
+  <tr><td>,%q.question_text</td><tr>
+<% end %>
+</table>
+
