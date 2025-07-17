@@ -7,6 +7,8 @@
       <th>Title</th>
       <th>Description</th>
       <th>QuestionCount</th>
+      <th>Taken By</th>
+      <th>Completed On</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,11 +18,14 @@
   <tbody>
   <% @user_survey_takens.each do |ust| %>
     <% s = Survey.find(ust.survey_id) %>
+    <% u = User.find(ust.user_id) %>
     <tr>
       <td><%= ust.id %></td>
       <td><%= s.survey_text %></td>
       <td><%= s.description %></td>
       <td><%= s.questions.count %></td>
+      <td><%= u.name %></td>
+      <td><%= ust.completed_at %></td>
       <td><%= button_to("Show", user_survey_taken_path(id: ust.id), method: :get) %></td>
       <% if current_user.is_admin %>
         <td><%= button_to("Edit", edit_user_survey_taken_path(id: ust.id), method: :put) %></td>

@@ -10,6 +10,9 @@ class UserSurveyTakensController < ApplicationController
     survey_saved = @user_survey_taken.save
 
     if survey_saved
+      @user_survey_taken.completed_at = time.zone.now
+      @user_survey_taken.save
+
       flash[:notice] = "Survey was successfully created."
       redirect_to surveys_path  # Redirects to surveys_index path, change TBD
     else
@@ -37,12 +40,13 @@ class UserSurveyTakensController < ApplicationController
 
   def create_testing_survey
     @survey = Survey.create(user: User.first, survey_text: 'My Survey', description: 'a description')
-    @survey.questions << Question.new(question_text: 'question 1 text')
-    @survey.questions << Question.new(question_text: 'question 2 text')
-    @survey.questions.first.options << Option.new(option_text: 'option 1 text') # row_index, set later
-    @survey.questions.first.options << Option.new(option_text: 'option 2 text') # row_index, set later
-    @survey.questions.last.options << Option.new(option_text: 'option 1 text') # row_index, set later
-    @survey.questions.last.options << Option.new(option_text: 'option 2 text') # row_index, set later
+    @survey.questions << Question.new(question_text: 'Do you like Ruby?')
+    @survey.questions << Question.new(question_text: 'Are you a team player?')
+    @survey.questions.first.options << Option.new(option_text: 'Yes') # row_index, set later
+    @survey.questions.first.options << Option.new(option_text: 'No') # row_index, set later
+    @survey.questions.last.options << Option.new(option_text: 'Always') # row_index, set later
+    @survey.questions.last.options << Option.new(option_text: 'Mostly') # row_index, set later
+    @survey.questions.last.options << Option.new(option_text: 'Seldom') # row_index, set later
     @survey
   end
 
