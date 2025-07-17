@@ -23,6 +23,7 @@
       <% if current_user.is_admin %>
         <td><%= button_to("Show", survey_path(id: s.id), method: :get) %></td>
         <td><%= button_to("Edit", edit_survey_path(id: s.id), method: :put) %></td>
+        <td><%= button_to("Results", user_surveys_taken_results_path(id: s.id), method: :put) %></td>
       <% end %>
       <td><%= button_to("Take", new_user_survey_taken_path(user_id: current_user.id, survey_id: s.id), method: :get) %></td>
     </tr> 
