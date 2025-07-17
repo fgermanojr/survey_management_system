@@ -10,8 +10,8 @@ class UserSurveyTakensController < ApplicationController
     survey_saved = @user_survey_taken.save
 
     if survey_saved
-      @user_survey_taken.completed_at = time.zone.now
-      @user_survey_taken.save
+      @user_survey_taken.completed_at = Time.zone.now
+      @user_survey_taken.save # TBD tighten error up
 
       flash[:notice] = "Survey was successfully created."
       redirect_to surveys_path  # Redirects to surveys_index path, change TBD
